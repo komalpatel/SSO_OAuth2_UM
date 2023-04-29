@@ -1,0 +1,29 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<h2>Dein Charge@@Friends Konto</h2>
+
+<div>
+    <h4>Bearbeite deine Anbieterdaten und dein Auszahlungskonto</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AccountNav" />
+        </div>
+        <div class="col-md-10">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

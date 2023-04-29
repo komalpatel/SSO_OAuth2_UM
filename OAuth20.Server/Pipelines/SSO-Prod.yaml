@@ -1,0 +1,52 @@
+trigger:
+- main
+stages:
+- stage: build
+  jobs:
+  - job: run_build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: NuGetToolInstaller@1
+      name: 'NuGetToolInstaller'
+      displayName: 'NuGet tool installer'
+      
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+ 
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+ 
+
+- stage: test
+  dependsOn: build
+  jobs:
+  - job: run_test
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - download: current
+      artifact: drop
+    - task: PowerShell@2
+      inputs:
+        filePath: '$(Pipeline.Workspace)\drop\test.ps1'
+
+
+- stage: publish_to_server
+  jobs:
+  - job: publish
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure subscription 1 (e16681a7-6398-4044-8525-0fba6e647254)'
+        appType: 'webApp'
+        WebAppName: 'caf-sso-production'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/**'

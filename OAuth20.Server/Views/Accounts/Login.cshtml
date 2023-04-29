@@ -1,0 +1,84 @@
+﻿@using Microsoft.Extensions.Options;
+@using OAuth20.Server.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using OAuth20.Server.Models.AccountViewModels;
+
+
+@inject IOptions<CaptchaSettings> CaptchaSettings
+
+@inject IStringLocalizer<AccountsController> Localizer
+@inject IHtmlLocalizer<AccountsController> HtmlLocalizer
+
+
+@model OAuth20.Server.Models.AccountViewModels.LoginRequest
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+
+    <div class="container">
+        <div class="alert alert-success alert-dismissible mt-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> You are authenticated successfully!
+            <div>
+                <a asp-controller="Accounts" asp-action="Logout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+<div class="card-deck" style="Width: 650px;">
+
+    <div class="card m-3" style="Width: 650px;">
+            <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">@HtmlLocalizer["Login"]</h5>
+        <div class="card-body">
+
+            <form class="px-4 py-3" asp-action="Login" asp-controller="Accounts" method="post" id="Accounts">
+                <div class="form-group">
+                        <label for="exampleDropdownFormEmail1">@HtmlLocalizer["Email"]</label>
+                        <input type="email" asp-for="UserName" class="form-control" id="UserName" placeholder=@HtmlLocalizer["Email"]>
+                </div>
+                <div class="form-group">
+                        <label for="exampleDropdownFormPassword1">@HtmlLocalizer["Password"]</label>
+                        <input type="password" asp-for="Password" class="form-control" id="exampleDropdownFormPassword1" placeholder=@HtmlLocalizer["Password"]>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                        <label class="form-check-label" for="dropdownCheck">
+                                @HtmlLocalizer["Rememberme"]
+                        </label>
+                    </div>
+                </div>
+
+
+                  @*  <button class="g-recaptcha" data-sitekey="6Le3WsYlAAAAAH98r0Mzz53pKVH3vRZ_IQURK6GK" data-callback='onSubmit'>@HtmlLocalizer["Signin"]</button>*@
+                    <div class="g-recaptcha" data-sitekey="@CaptchaSettings.Value.ClientKey" data-callback="onSubmit" data-size="invisible"></div>
+                   
+                    <div class="form-group">
+                        <button type="submit" class="btn" style="background-color:#f9f9f9; border:1px solid #d3d3d3 !important">@HtmlLocalizer["Signin"]</button>
+                    </div>
+                    
+             </form>
+            
+            <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-action="Register" asp-controller="Accounts">@HtmlLocalizer["Singup"]</a>
+            @*<a class="dropdown-item" href="#">Forgot password?</a>
+            <a class="dropdown-item" asp-action="GoogleLogin">Log In With Google</a>*@
+                <a class="dropdown-item" asp-action="ForgotPassword">@HtmlLocalizer["ForgotPassword"]</a>
+        </div>
+    </div>
+</div>
+}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("Accounts").submit();
+    }
+</script>

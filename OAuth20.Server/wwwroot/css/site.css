@@ -1,0 +1,105 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand { white-space: normal; text-align: center; word-break: break-all; }
+
+/* Provide sufficient contrast against white background */
+a { color: #0366d6; }
+
+.btn-primary { color: #fff; background-color: #1b6ec2; border-color: #1861ac; }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link { color: #fff; background-color: #1b6ec2; border-color: #1861ac; }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html { font-size: 14px; }
+
+@media (min-width: 768px) {
+	html { font-size: 16px; }
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(119,183,86,0.5); }
+
+button.accept-policy { font-size: 1rem; line-height: inherit; }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html { position: relative; min-height: 100%; }
+
+body { /* Margin bottom by footer height */ margin-bottom: 60px; }
+.footer { position: absolute; bottom: 0; width: 100%; white-space: nowrap; line-height: 60px; /* Vertically center the text there */ }
+
+table th, table td { width: auto !important; }
+.img-thumbnail { width: 100px !important; }
+	.img-thumbnail.full { width: 200px !important; }
+
+@media (min-width: 1200px) {
+	.container { max-width: 1600px!important; }
+}
+.display-5 { font-size: 2rem; font-weight: 300; line-height: 1.2; }
+input[type=checkbox].form-control { max-height: 24px; margin-top: 6px; max-width: 24px; }
+.container main{margin-bottom: 80px;}
+
+.hidden { display: none; }
+
+.month { background-color: #ccffcc; }
+.month td { width: 100%; font-weight: 600; }
+
+.main-list li{font-weight: 600; font-size: 120%;}
+.mandatory-detail { padding: 8px; background-color: #FFC0C0; border: 2px solid #CC0000; }
+.col-md-16 { position: relative; width: 100%; padding-right: 15px; padding-left: 15px; }
+
+.noUi-connects .noUi-connect { background-color: #4080FF; }
+.noUi-connects .noUi-connect:nth-child(2) { background-color: #40C040; }
+
+
+
+tr.ng-scope:nth-child(even) { background-color: #eef; }
+.vertical-menu {
+	width: 200px; /* Set the width of the menu */
+	/*border: 1px solid #77B756;*/
+}
+
+	.vertical-menu a {
+		background-color: #eee; /* Set the background color of each menu item */
+		color: black; /* Set the text color of each menu item */
+		display: block; /* Set the menu items to display as block elements */
+		padding: 12px; /* Add some padding to the menu items */
+		text-decoration: none; /* Remove the underline from the menu items */
+		border-bottom: 1px solid #77B756;
+	}
+
+		.vertical-menu a:hover {
+			background-color: #77B756; /* Change the background color of a menu item when the mouse hovers over it */
+		}
+/* Main Style Stars from here  */
+
+.flag {
+	background: url(../img/flags_responsive.png) no-repeat;
+}
+
+select.flag {
+	width: 40px;
+	height: 30px;
+	display: inline-block
+}
+
+/*.flag-en-US {
+	background-position: 0 93.38843%
+}
+*/
+.flag-en-UK {
+	background-position: 0 92.561983%
+}
+.flag-en-GB {
+	background-position: 0 92.561983%
+}
+.flag-de-DE {
+	background-position: 0 22.31405%
+}
+/*.flag-fr-FR {
+	background-position: 0 29.752066%
+}*/

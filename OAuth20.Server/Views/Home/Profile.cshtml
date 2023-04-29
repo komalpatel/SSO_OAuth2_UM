@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Anbieterseite " + ViewBag.CustomerEntity.Name;
+}
+<style>
+	.station-list{}
+	.station-thumbnail { width: 80px; height: 80px; background-size: cover!important; border: 4px solid white; border-radius: 16px;}
+	.main-content table { -webkit-border-horizontal-spacing: 4px; -webkit-border-vertical-spacing: 4px; width: 100%;}
+	.main-content table th { text-align: left; }
+	td{text-align:left;}
+</style>
+<div class="text-center main-content">
+	<h1 class="display-4">Charge@@Friends Verkauf von Ladestrom</h1>
+	<h3>Anbieterseite von @ViewBag.CustomerEntity.Name</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Ladepunkt-Foto</th>
+				<th>Stationsname</th>
+				<th>PLZ</th>
+				<th>Straße</th>
+				<th>Tarif (Ct/kWh)</th>
+				<th>Lon</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (OAuth20.Server.Models.ChargePoint chargePoint in ViewBag.ChargePoints)
+			{
+			<tr>
+				<td><div class="station-thumbnail" style="background-image: url('@chargePoint.ThumbnailUrl')"></div></td>
+				<td>@chargePoint.Name</td>
+				<td>@chargePoint.ZipCode</td>
+				<td>@chargePoint.Street</td>
+				<td>@chargePoint.Tarif  </td>
+				@*		<td>@chargePoint.Lon</td>*@
+				@*<td>@chargePoint.Lat</td>
+					<td>@chargePoint.Lon</td>*@
+			</tr>
+			}
+		</tbody>
+	</table>
+	<p></p>
+	<div style="border: 1px solid #808080; padding: 20px; margin: 20px">
+		<table>
+			<tr>
+				<td>Betreiber:</td>
+				<td>@ViewBag.CustomerEntity.Name</td>
+			</tr>
+			<tr>
+				<td>Kontakt:</td>
+				<td><a href="mailto:@ViewBag.CustomerEntity.Email">@ViewBag.CustomerEntity.Email</a></td>
+			</tr>
+			<tr>
+				<td>&#xa0;</td>
+				<td>@ViewBag.CustomerEntity.Phone</td>
+			</tr>
+
+		</table>
+	</div>
+
+</div>

@@ -1,0 +1,61 @@
+﻿@using OAuth20.Server.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<ManageController> Localizer
+@inject IHtmlLocalizer<ManageController> HtmlLocalizer
+
+
+@model OAuth20.Server.SSORequest.CreateProfileRequest
+
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card-deck" style="Width: 650px;">
+
+    <div class="card mb-3" style="Width: 650px;">
+        <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">@HtmlLocalizer["Profile"]</h5>
+        <div class="card-body">
+              <form class="px-4 py-3" asp-action="ChangeProfile" asp-controller="Manage" method="post">
+                <div class="form-group">
+                   @* <label asp-for="UserName"></label>*@
+                    @HtmlLocalizer["UserName"]
+                    <input asp-for="UserName" id="UserName" class="form-control" readonly="readonly" />
+
+                </div>
+
+                <div class="form-group">
+                   @* <label asp-for="FirstName"></label>*@
+
+                    @HtmlLocalizer["FirstName"]
+                    <input type="text" asp-for="FirstName" id="FirstName" class="form-control" placeholder="FirstName" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    @*<label asp-for="LastName"></label>*@
+                    @HtmlLocalizer["LastName"]
+                    <input type="text" asp-for="LastName" class="form-control" placeholder="LastName" />
+                    <span asp-validation-for="LastName" id="LastName" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    @*<label for="phone">Mobile number</label>*@
+                    @HtmlLocalizer["Mobilenumber"]
+                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="00249" id="phone">
+                </div>
+                <div class="form-group">
+                   @* <label for="phone">Email</label>*@
+                    @HtmlLocalizer["Email"]
+                    <input type="text" asp-for="Email" class="form-control" placeholder="Email" id="Email">
+                </div>
+                <button type="submit" class="btn btn-primary">@HtmlLocalizer["Submit"]</button>
+            </form>
+
+        </div>
+    </div>
+
+
+</div>

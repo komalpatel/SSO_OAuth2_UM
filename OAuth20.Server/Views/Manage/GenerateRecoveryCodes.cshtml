@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Generate two-factor authentication (2FA) recovery codes";
+
+}
+
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>This action generates new recovery codes.</strong>
+    </p>
+    <p>
+        If you lose your device and don't have the recovery codes you will lose access to your account.
+    </p>
+    <p>
+        Generating new recovery codes does not change the keys used in authenticator apps. If you wish to change the key
+        used in an authenticator app you should <a asp-action="ResetAuthenticatorWarning">reset your authenticator keys.</a>
+    </p>
+</div>
+
+<div class="container" style="margin-top:30px;margin-bottom:130px">
+    <div class="row justify-content-md-center" style="margin-top:130px;">
+        <div class="col-md-5">
+            <div class="card">
+                <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">Generate two-factor authentication (2FA) recovery codes</h5>
+                <div class="card-body">
+                    <form asp-action="GenerateRecoveryCodes" method="post" class="px-4 py-3">
+                        <button class="btn btn-primary" type="submit">Generate Recovery Codes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

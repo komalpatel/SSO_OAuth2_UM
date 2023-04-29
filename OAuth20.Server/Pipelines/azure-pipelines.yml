@@ -1,0 +1,80 @@
+trigger:
+  - Feature/UM
+pool:
+  vmImage: 'windows-latest'
+ 
+variables:
+  solution: '**/*.sln'
+  project: '**/OAuth20.Server/OAuth20.Server.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  azureSubscription: 'e16681a7-6398-4044-8525-0fba6e647254'
+  appName: 'caf-sso-production'  
+  system.debug: false  
+  
+stages:
+- stage: build
+  jobs:
+  - job: run_build
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - task: NuGetToolInstaller@1
+        name: 'NuGetToolInstaller'
+        displayName: 'NuGet tool installer'
+     
+      - task: NuGetCommand@2
+        name: 'restoresolutions'
+        displayName: 'restore solutions'
+        inputs:  
+            restoreSolution: '$(solution)' 
+- stage: Publish
+  dependsOn: build
+  jobs:
+  - job: run_publish
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - download: current
+    - task: DotNetCoreCLI@2
+      name: 'Publish'
+      displayName: 'Publish'
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        projects: '$(project)'
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+    - task: PublishBuildArtifacts@1
+      name: 'PublishBuildArtifacts'
+      displayName: 'Publish build artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        publishLocation: Container
+        ArtifactName: 'SSO'
+        TargetPath: '$(Build.ArtifactStagingDirectory)'
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - task: DownloadBuildArtifacts@1  
+        inputs:  
+            buildType: 'current'  
+            downloadType: 'single'  
+            downloadPath: '$(Build.ArtifactStagingDirectory)'  
+            ArtifactName: 'SSO'            
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: 'Service connection Production'
+          appType: 'webApp'
+          WebAppName: 'caf-sso-production'
+          deployToSlotOrASE: true
+          ResourceGroupName: 'Production'
+          SlotName: 'production'
+          enableCustomDeployment: true
+          packageForLinux: $(Build.ArtifactStagingDirectory)/**/*.zip
+          DeploymentType: webDeploy
+    

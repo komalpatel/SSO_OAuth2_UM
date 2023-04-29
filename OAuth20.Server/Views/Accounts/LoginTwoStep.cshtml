@@ -1,0 +1,73 @@
+﻿@*@model OAuth20.Server.Models.AccountViewModels.LoginWith2faViewModel
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+
+
+<hr />
+<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+<div class="card-deck" style="Width: 650px;">
+
+    <div class="card m-3" style="Width: 650px;">
+        <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">Two-factor authentication</h5>
+        <div class="card-body">
+
+            <form method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="px-4 py-3">
+            <input asp-for="RememberMe" type="hidden" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TwoFactorCode"></label>
+                    <input asp-for="TwoFactorCode" class="form-control" autocomplete="off" placeholder="Code" />
+                <span asp-validation-for="TwoFactorCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="RememberMachine">
+                        <input asp-for="RememberMachine" />
+                        @Html.DisplayNameFor(m => m.RememberMachine)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}*@
+
+
+
+@model OAuth20.Server.Models.AccountViewModels.TwoFactor
+
+@{
+    ViewData["Title"] = "Login Two Step";
+}
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<div class="card-deck" style="Width: 650px;">
+
+    <div class="card m-3" style="Width: 650px;">
+        <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">Enter your authentication code</h5>
+        <div class="card-body">
+            <form asp-action="LoginTwoStep" method="post">
+                <div class="form-group">
+                    <label>Code</label>
+                    <input asp-for="TwoFactorCode" class="form-control" />
+                </div>
+                <button class="btn btn-primary" type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<p>
+    Don't have access to your authenticator device? You can
+    <a asp-action="LoginWithMobileAuthenticator" asp-route-returnUrl="@ViewData["ReturnUrl"]">log in with a recovery code</a>.
+</p>

@@ -1,0 +1,12 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "E-Mail bestätigt";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>@Model.StatusMessage</p>
+@if(Model.isSuccess){
+<p>Melde Dich <a href="/Identity/Account/Login">hier</a> an, um mit der Einrichtung Deiner Ladestation fortzufahren.</p>
+    
+}

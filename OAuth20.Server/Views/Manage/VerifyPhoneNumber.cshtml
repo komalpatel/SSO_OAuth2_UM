@@ -1,0 +1,36 @@
+﻿@model OAuth20.Server.Models.ManageViewModels.VerifyPhoneNumberViewModel
+@{
+    ViewData["Title"] = "Verify Phone Number";
+}
+<div class="card-deck" style="Width: 650px;">
+
+    <div class="card mb-3" style="Width: 650px;">
+        <h5 class="card-header text-white" style="color:#77B756;background-color:#77B756">Add a phone number.</h5>
+        <div class="card-body">
+            <form asp-controller="Manage" asp-action="VerifyPhoneNumber" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <input asp-for="PhoneNumber" type="hidden" />
+          
+                <h5>@ViewData["Status"]</h5>
+               
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Code" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Code" class="form-control" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,46 @@
+﻿@using OAuth20.Server.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<AccountsController> Localizer
+@inject IHtmlLocalizer<AccountsController> HtmlLocalizer
+
+@using Microsoft.AspNetCore.Identity
+
+@{
+	ViewData["Title"] = "Home Page";
+	bool isFirst = ViewBag.IsFirst ?? false;
+}
+
+<div>
+	<h1 class="display-4">Charge@Friends</h1>
+	@if (isFirst)
+	{
+		<div class="col-8">
+			<p>
+				@HtmlLocalizer["FurtherSteps"]
+				</p>
+			<ol class="main-list">
+				<li>
+					@HtmlLocalizer["FurtherSteps1"]					
+				</li>
+				<li>
+					@HtmlLocalizer["FurtherSteps2"]
+				</li>
+				<li>
+					@HtmlLocalizer["FurtherSteps3"]
+				</li>
+				<li>
+					@HtmlLocalizer["FurtherSteps4"]
+				</li>
+			</ol>
+
+
+			<p><a href="/manage/changeprofile">@HtmlLocalizer["EditPersonalData"]</a></p>
+		</div>
+	}
+	else
+	{
+		<p>Hier kannst Du Dein Charge@@Friends Konto und Deine Stationen bearbeiten.</p>
+	}
+</div>
